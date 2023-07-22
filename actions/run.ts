@@ -122,6 +122,8 @@ const Pools: { [id: string]: string[]; } = {
 	]
 }
 
+const OK_MESSAGE = '✅ There is no liquidatable vaults';
+
 type VaultInfo = {
 	id: number,
 	collateralPercentage: number,
@@ -142,7 +144,7 @@ export const runFn: ActionFn = async (context: Context, event: Event) => {
 	const tg_key = await context.secrets.get("TG_BOT_API_KEY");
 	const dest_chat = await context.secrets.get("TG_CHAT_ID");
 
-	await sendMessage(message, tg_key, dest_chat);
+	await sendMessage(message, tg_key, dest_chat, message === OK_MESSAGE);
 }
 
 const allLiquidatableVaults = async (): Promise<LiquidatableVault[][]> => {
@@ -206,5 +208,5 @@ const constructMessage = (vaults: LiquidatableVault[][]): string => {
 		}
 	}
 
-	return message != '' ? message : '✅ There is no liquidatable vaults';
+	return message != '' ? message : OK_MESSAGE;
 }
