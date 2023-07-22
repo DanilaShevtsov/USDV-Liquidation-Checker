@@ -1,0 +1,15 @@
+account_id: "hwx"
+actions:
+  hwx/usdv:
+    runtime: v2
+    sources: actions
+    specs:
+      usdv-checker:
+        description: USDV checker for liquidatable vaults
+        function: run:runFn
+        trigger:
+          type: periodic
+          periodic: 
+            interval: 5m
+          execution_type: sequential
+project_slug: "USDV"
