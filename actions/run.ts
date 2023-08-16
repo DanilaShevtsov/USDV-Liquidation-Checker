@@ -90,6 +90,12 @@ const Networks = [
 	'56'
 ];
 
+const Provider: { [id: string]: string; } = {
+	'1': 'https://rpc.ankr.com/eth',
+	'250': 'https://rpc.ankr.com/fantom',
+	'56': 'https://bsc-dataseed.binance.org/'
+}
+
 const NetworkName: { [id: string]: string; } = {
 	'1': 'eth',
 	'250': 'fantom',
@@ -118,7 +124,8 @@ const Pools: { [id: string]: string[]; } = {
 
 	'56': [
 		'0x9f8a13d31a2d2fe771c05b38d344719641647443',
-		'0x73C4D4CB2e0EbF834936E5a6DA1DF9dE8624e95c'
+		'0x73C4D4CB2e0EbF834936E5a6DA1DF9dE8624e95c',
+		'0x2fED640e4E7178d5Cc27Ee981468F8D40d471823'
 	]
 }
 
@@ -158,7 +165,7 @@ const allLiquidatableVaults = async (): Promise<LiquidatableVault[][]> => {
 }
 
 const liquidatableVaultForNetwork = async (network: string): Promise<LiquidatableVault[]> => {
-	const provider = new ethers.JsonRpcProvider(`https://rpc.ankr.com/${NetworkName[network]}/`)
+	const provider = new ethers.JsonRpcProvider(Provider[network]);
 	const contract = new ethers.Contract(PoolServices[network], poolServiceABI, provider);
 	var liquidatableVaults: LiquidatableVault[] = [];
 
